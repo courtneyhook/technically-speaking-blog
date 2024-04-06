@@ -1,4 +1,3 @@
-const { FOREIGNKEYS } = require("sequelize/lib/query-types");
 const Blogger = require("./Blogger");
 const BlogPost = require("./BlogPost");
 const Comment = require("./Comment");
