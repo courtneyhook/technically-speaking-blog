@@ -63,4 +63,4 @@ Blogger.init(
   }
 );
 
-modeule.exports = Blogger;
+module.exports = Blogger;

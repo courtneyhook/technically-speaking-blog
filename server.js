@@ -4,34 +4,34 @@ const session = require("express-session");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers");
 const helpers = require("./utils/helpers");
-require("dotenv").config();
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
-const PORT = process.env.PORT || 3323;
+const PORT = process.env.PORT || 3001;
 
-// configure session middleware
+// Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
+
 const sess = {
-  secret: process.env.SESSION_SECRET,
+  secret: "Super secret secret",
   cookie: {
-    maxAge: 1000 * 60 * 30 * 24, // session maxAge in milliseconds
-    httpOnly: true, // if true: prevents client side JS from reading the cookie
-    secure: false, // if true: only transmit cookie over https
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
     sameSite: "strict",
   },
-  resave: false, // if session is not updated, don't override
-  saveUninitialized: true, //
+  resave: false,
+  saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize,
   }),
 };
 
-// use session middleware
 app.use(session(sess));
 
+// Inform Express.js on which template engine to use
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
@@ -43,6 +43,6 @@ app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>
-    console.log(`Patient Portal Listening on port http://localhost:${PORT}`)
+    console.log("Now listening at http://localhost:" + PORT)
   );
 });

@@ -38,7 +38,7 @@ router.get("/login", async (req, res) => {
 });
 
 //routes the user to their profile page and displays their current blogposts with comments
-router.get("/profile", withAuth, async (req, res) => {
+router.get("/profile", async (req, res) => {
   try {
     const bloggerData = await BlogPost.findByPk(req.session.user_id, {
       include: [
