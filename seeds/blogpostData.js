@@ -3,7 +3,7 @@ const { BlogPost } = require("../models");
 const blogpostData = [
   {
     title: "Always Keep a Spare Computer in your House",
-    body: "The best tip I can give to a new coder is to always keep a spare computer (maybe two) in your house. When you are learning to code, you will inevitably start to rage. If you can solve the bugs, then the rage will turn to blind fury and you will throw your computer out the window. But after you have calmed yourself with a bottle of tequila, you will be ready to get back to work. That is when you will be glad you have a spare computer!",
+    body: "The best tip I can give to a new coder is to always keep a spare computer (maybe two) in your house. When you are learning to code, you will inevitably start to rage. If you can't solve the bugs, then the rage will turn to blind fury and you will throw your computer out the window. But after you have calmed yourself with a bottle of tequila, you will be ready to get back to work. That is when you will be glad you have a spare computer!",
     blogger_id: 1,
   },
   {
@@ -33,7 +33,7 @@ const blogpostData = [
   },
   {
     title: "Online Line Dancing--Live Stream",
-    body: "Howdy Ya'll! I am hosting an online line dancing party online tonight at 6:00 pm. The hubs and I will be showing you how to boogie and groove all night long (at least until 8:30). We are looking for spicy seniors to join our party.",
+    body: "Howdy Ya'll! I am hosting an online line dancing party tonight at 6:00 pm. The hubs and I will be showing you how to boogie and groove all night long (at least until 8:30). We are looking for spicy seniors to join our party.",
     blogger_id: 7,
   },
   {
