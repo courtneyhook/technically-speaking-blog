@@ -11,6 +11,11 @@ const loginUser = async (event) => {
       headers: { "Content-Type": "application/json" },
     });
     console.log(response);
+    if (response.ok) {
+      document.location.assign("/profile");
+    } else {
+      console.log("could not display profile page");
+    }
   }
 };
 

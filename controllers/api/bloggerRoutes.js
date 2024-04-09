@@ -22,7 +22,6 @@ router.post("/", async (req, res) => {
 //blogger login existing user
 router.post("/login", async (req, res) => {
   try {
-    console.log(req);
     const bloggerData = await Blogger.findOne({
       where: { email: req.body.user_email },
     });
@@ -34,7 +33,7 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    const validPassword = bloggerData.checkPassword(req.body.password);
+    const validPassword = bloggerData.checkPassword(req.body.user_password);
 
     if (!validPassword) {
       res
