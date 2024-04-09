@@ -4,6 +4,8 @@ const { Blogger } = require("../../models");
 //create a new blogger from the sign up function
 router.post("/", async (req, res) => {
   try {
+    console.log("blogger route");
+    console.log(req.body);
     const bloggerData = await Blogger.create({ ...req.body });
 
     req.session.save(() => {
@@ -20,8 +22,9 @@ router.post("/", async (req, res) => {
 //blogger login existing user
 router.post("/login", async (req, res) => {
   try {
+    console.log(req);
     const bloggerData = await Blogger.findOne({
-      where: { username: req.body.username },
+      where: { email: req.body.user_email },
     });
 
     if (!bloggerData) {

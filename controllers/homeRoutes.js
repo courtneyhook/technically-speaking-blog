@@ -7,20 +7,21 @@ router.get("/", async (req, res) => {
   try {
     const blogpostData = await BlogPost.findAll({
       // include: [
-      // {
-      attributes: ["title", "body"],
-      // },
+      //   {
+      //     model: BlogPost,
+      //     attributes: ["title", "body"],
+      //   },
       //   {
       //     model: Blogger,
       //     attributes: ["username"],
       //   },
       // ],
     });
-
+    console.log(blogpostData);
     const blogpost = blogpostData.map((blogpost) =>
       blogpost.get({ plain: true })
     );
-    console.log(blogpost);
+
     res.render("home", {
       blogpost,
       logged_in: req.session.logged_in,
@@ -33,7 +34,7 @@ router.get("/", async (req, res) => {
 //routes the user to the login screen
 router.get("/login", async (req, res) => {
   if (req.session.logged_in) {
-    return res.redirect("/");
+    return res.redirect("/profile");
   }
   res.render("login");
 });
@@ -41,23 +42,24 @@ router.get("/login", async (req, res) => {
 //routes the user to their profile page and displays their current blogposts with comments
 router.get("/profile", async (req, res) => {
   try {
-    const bloggerData = await BlogPost.findByPk(req.session.user_id, {
-      include: [
-        {
-          model: BlogPost,
-          attributes: ["title", "body"],
-        },
-        {
-          model: Comment,
-          attributes: ["comment_body"],
-          include: [
-            {
-              model: Blogger,
-              attributes: ["username"],
-            },
-          ],
-        },
-      ],
+    console.log("user_id" + req.session.user_id);
+    const bloggerData = await Blogger.findByPk(req.session.user_id, {
+      // include: [
+      //   {
+      //     model: BlogPost,
+      //     attributes: ["title", "body"],
+      //   },
+      //     {
+      //       model: Comment,
+      //       attributes: ["comment_body"],
+      //       include: [
+      //         {
+      //           model: Blogger,
+      //           attributes: ["username"],
+      //         },
+      //       ],
+      //     },
+      // ],
     });
 
     const blogger = bloggerData.get({ plain: true });
@@ -69,6 +71,10 @@ router.get("/profile", async (req, res) => {
   } catch (error) {
     console.log("error displaying profile");
   }
+});
+
+router.get("/signup", async (req, res) => {
+  res.render("signup");
 });
 
 module.exports = router;
