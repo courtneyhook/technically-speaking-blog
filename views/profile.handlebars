@@ -1,1 +1,7 @@
-<h1>Profile Page</h1>
+<h3>Profile page</h3>
+
+<h4>Welcome {{first_name}}!</h4>
+{{#each blogposts}}
+  <h5>{{title}}</h5>
+  <p>{{body}}</p>
+{{/each}}

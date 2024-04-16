@@ -1,66 +1,45 @@
 const router = require("express").Router();
 const { Blogger, BlogPost, Comment } = require("../models");
-const withAuth = require("../utils/auth");
+//const withAuth = require("../utils");
 
-//get the latest blogposts to display on the homepage
 router.get("/", async (req, res) => {
   try {
-    const blogpostData = await BlogPost.findAll({
-      // include: [
-      //   {
-      //     model: BlogPost,
-      //     attributes: ["title", "body"],
-      //   },
-      //   {
-      //     model: Blogger,
-      //     attributes: ["username"],
-      //   },
-      // ],
+    const blogPostData = await BlogPost.findAll({
+      attributes: ["title", "body", "blogger_id"],
     });
-    console.log(blogpostData);
-    const blogpost = blogpostData.map((blogpost) =>
-      blogpost.get({ plain: true })
+
+    const blogPost = blogPostData.map((blogPost) =>
+      blogPost.get({ plain: true })
     );
 
     res.render("home", {
-      blogpost,
+      blogPost,
       logged_in: req.session.logged_in,
     });
   } catch (error) {
-    console.log("error getting blogpost data");
+    res.status(500).json(error);
   }
 });
 
-//routes the user to the login screen
-router.get("/login", async (req, res) => {
-  if (req.session.logged_in) {
-    return res.redirect("/profile");
-  }
-  res.render("login");
-});
-
-//routes the user to their profile page and displays their current blogposts with comments
 router.get("/profile", async (req, res) => {
+  if (!req.session.logged_in) {
+    return res.redirect("/login");
+  }
   try {
-    console.log("user_id" + req.session.user_id);
     const bloggerData = await Blogger.findByPk(req.session.user_id, {
-      // include: [
-      //   {
-      //     model: BlogPost,
-      //     attributes: ["title", "body"],
-      //   },
-      //     {
-      //       model: Comment,
-      //       attributes: ["comment_body"],
-      //       include: [
-      //         {
-      //           model: Blogger,
-      //           attributes: ["username"],
-      //         },
-      //       ],
-      //     },
-      // ],
+      include: [
+        {
+          model: BlogPost,
+          attributes: ["title", "body"],
+        },
+      ],
     });
+
+    if (!bloggerData) {
+      res
+        .status(400)
+        .json({ message: "There is no BLOGGER with that user id" });
+    }
 
     const blogger = bloggerData.get({ plain: true });
 
@@ -69,8 +48,15 @@ router.get("/profile", async (req, res) => {
       logged_in: req.session.logged_in,
     });
   } catch (error) {
-    console.log("error displaying profile");
+    res.status(400).json({ message: "Error" });
   }
+});
+
+router.get("/login", async (req, res) => {
+  if (req.session.logged_in) {
+    return res.redirect("/profile");
+  }
+  res.render("login");
 });
 
 router.get("/signup", async (req, res) => {

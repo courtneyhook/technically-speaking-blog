@@ -1,9 +1,7 @@
-<h1>home</h1>
-<div>
-  {{#each blogpost}}
-    <p>{{title}}</p>
-    <p>{{body}}</p>
-    <br />
-    <br />
-  {{/each}}
-</div>
+<h2>home</h2>
+
+{{#each blogPost}}
+  <h4>{{title}}</h4>
+  <h6>{{blogger_id}}</h6>
+  <p>{{body}}</p>
+{{/each}}

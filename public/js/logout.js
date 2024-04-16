@@ -1,4 +1,4 @@
-const logout = async () => {
+const userLogout = async () => {
   const response = await fetch("/api/blogger/logout", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -7,12 +7,8 @@ const logout = async () => {
   if (response.ok) {
     document.location.replace("/");
   } else {
-    let myModal = new bootstrap.Modal(
-      document.getElementById("errorModal"),
-      {}
-    );
-    myModal.show();
+    console.log("error logging out");
   }
 };
 
-document.querySelector("#logout").addEventListener("click", logout);
+document.getElementById("logout-btn").addEventListener("click", userLogout);

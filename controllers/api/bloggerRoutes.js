@@ -1,13 +1,10 @@
 const router = require("express").Router();
 const { Blogger } = require("../../models");
 
-//create a new blogger from the sign up function
 router.post("/", async (req, res) => {
   try {
-    console.log("blogger route");
-    console.log(req.body);
     const bloggerData = await Blogger.create({ ...req.body });
-
+    console.log(bloggerData);
     req.session.save(() => {
       req.session.user_id = bloggerData.id;
       req.session.logged_in = true;
@@ -15,30 +12,24 @@ router.post("/", async (req, res) => {
       res.status(200).json(bloggerData);
     });
   } catch (error) {
-    console.log("error creating user");
+    res.status(400).json({ status: "error", message: "Can not signup" });
   }
 });
 
-//blogger login existing user
 router.post("/login", async (req, res) => {
   try {
     const bloggerData = await Blogger.findOne({
-      where: { email: req.body.user_email },
+      where: { email: req.body.email },
     });
-
     if (!bloggerData) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+      res.status(400).json({ message: "Incorrect email or password " });
       return;
     }
 
-    const validPassword = bloggerData.checkPassword(req.body.user_password);
+    const passwordOk = bloggerData.checkPassword(req.body.password);
 
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+    if (!passwordOk) {
+      res.status(400).json({ message: "Incorrect email or password " });
       return;
     }
 
@@ -46,24 +37,20 @@ router.post("/login", async (req, res) => {
       req.session.user_id = bloggerData.id;
       req.session.logged_in = true;
 
-      res.json({ user: bloggerData, message: "You are now logged in" });
+      res.json({ user: bloggerData, message: "You are logged in" });
     });
   } catch (error) {
     res.status(400).json(error);
   }
 });
 
-//blogger logout
 router.post("/logout", (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
   } else {
-    res.status(400).json({
-      status: "error",
-      message: "There was an error logging out",
-    });
+    console.log("error logging out");
   }
 });
 
