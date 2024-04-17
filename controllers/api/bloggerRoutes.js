@@ -4,7 +4,7 @@ const { Blogger } = require("../../models");
 router.post("/", async (req, res) => {
   try {
     const bloggerData = await Blogger.create({ ...req.body });
-    console.log(bloggerData);
+
     req.session.save(() => {
       req.session.user_id = bloggerData.id;
       req.session.logged_in = true;
