@@ -13,4 +13,20 @@ const createNewPost = async (event) => {
   }
 };
 
+const deletePost = async (event) => {
+  if (event.target.hasAttribute("data-id")) {
+    const id = event.target.getAttribute("data-id");
+
+    const response = await fetch(`/api/blogpost/${id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      document.location.reload();
+    }
+  }
+};
+
 document.getElementById("submit-post").addEventListener("click", createNewPost);
+document
+  .querySelectorAll(".remove-post")
+  .forEach((el) => el.addEventListener("click", deletePost));

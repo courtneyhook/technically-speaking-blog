@@ -30,7 +30,7 @@ router.get("/profile", async (req, res) => {
       include: [
         {
           model: BlogPost,
-          attributes: ["title", "body"],
+          attributes: ["title", "body", "id"],
         },
       ],
     });
