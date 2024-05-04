@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
         },
       ],
     });
-    console.log(blogPostData);
+
     const blogPost = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
     );

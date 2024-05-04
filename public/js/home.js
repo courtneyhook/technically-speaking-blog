@@ -6,7 +6,7 @@ const saveNewComment = async (event) => {
 
   const response = await fetch("/api/comment", {
     method: "POST",
-    body: JSON.stringify({ comment }),
+    body: JSON.stringify({ comment, id }),
     headers: { "Content-Type": "application/json" },
   });
 

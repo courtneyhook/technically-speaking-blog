@@ -3,9 +3,9 @@ const { Comment } = require("../../models");
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     const commentData = await Comment.create({
       comment_body: req.body.comment,
+      blogpost_id: req.body.id,
       blogger_id: req.session.user_id,
     });
 
