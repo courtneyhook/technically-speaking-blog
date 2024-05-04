@@ -2,6 +2,9 @@ const router = require("express").Router();
 const { Comment } = require("../../models");
 
 router.post("/", async (req, res) => {
+  if (!req.session.logged_in) {
+    return res.redirect("/login");
+  }
   try {
     const commentData = await Comment.create({
       comment_body: req.body.comment,

@@ -4,20 +4,29 @@
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
   crossorigin="anonymous"
 />
+<h1>blogpost</h1>
 
-<h2>home</h2>
-
-{{#each blogPost}}
-  <a href="/blogpost" id="blog-title-{{id}}"><h4>{{title}}</h4></a>
-    <span>Posted by {{blogger.username}} on {{createdAt}}</span></a>
-
-  <p id="blog-post-{{id}}">{{body}}</p>
-
-
-  <hr />
-
-{{/each}}
-
+<button
+  class="comment-button"
+  data-id="{{id}}"
+  id="comment-button-{{id}}"
+>Comment</button>
+<form id="{{id}}" class="d-none">
+  <label for="added-comment">Comment: </label>
+  <br />
+  <textarea
+    id="added-comment-{{id}}"
+    data-id="{{id}}"
+    cols="60"
+    rows="5"
+  ></textarea>
+  <br />
+  <button
+    class="save-button"
+    data-id="{{id}}"
+    id="save-comment-{{id}}"
+  >Save</button>
+</form>
 <script
   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -33,5 +42,3 @@
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"
 ></script>
-
-<script src="/js/home.js"></script>
