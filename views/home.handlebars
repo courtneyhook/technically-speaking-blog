@@ -8,10 +8,14 @@
 <h2>home</h2>
 
 {{#each blogPost}}
-  <h4 id="blog-title-{{id}}">{{title}}</h4>
+  <h4 id="blog-title-{{id}}">{{title}}
+    <span>Posted by {{blogger.username}} on {{createdAt}}</span></h4>
+
   <p id="blog-post-{{id}}">{{body}}</p>
   {{#each Comments}}
-    <p>{{comment_body}}
+    <p>{{blogger.username}}
+      says:
+      {{comment_body}}
     </p>
   {{/each}}
 
