@@ -27,12 +27,10 @@ router.get("/profile", async (req, res) => {
   }
   try {
     const bloggerData = await Blogger.findByPk(req.session.user_id, {
-      include: [
-        {
-          model: BlogPost,
-          attributes: ["title", "body", "id"],
-        },
-      ],
+      include: {
+        model: BlogPost,
+        attributes: ["title", "body", "id"],
+      },
     });
 
     if (!bloggerData) {
@@ -40,7 +38,6 @@ router.get("/profile", async (req, res) => {
         .status(400)
         .json({ message: "There is no BLOGGER with that user id" });
     }
-
     const blogger = bloggerData.get({ plain: true });
 
     res.render("profile", {
