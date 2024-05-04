@@ -16,10 +16,9 @@ const createNewPost = async (event) => {
 
 const editPost = async (event) => {
   event.preventDefault();
-  console.log("edit post js");
+
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
-    console.log(id);
 
     const title = document
       .querySelector(`#updated-post-title-${id}`)

@@ -5,9 +5,14 @@ const { Blogger, BlogPost, Comment } = require("../models");
 router.get("/", async (req, res) => {
   try {
     const blogPostData = await BlogPost.findAll({
-      attributes: ["title", "body", "blogger_id"],
+      include: [
+        {
+          model: Comment,
+          attributes: ["comment_body", "blogger_id", "blogpost_id"],
+        },
+      ],
     });
-
+    console.log(blogPostData);
     const blogPost = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
     );
@@ -27,10 +32,16 @@ router.get("/profile", async (req, res) => {
   }
   try {
     const bloggerData = await Blogger.findByPk(req.session.user_id, {
-      include: {
-        model: BlogPost,
-        attributes: ["title", "body", "id"],
-      },
+      include: [
+        {
+          model: BlogPost,
+          attributes: ["title", "body", "id"],
+        },
+        {
+          model: Comment,
+          attributes: ["comment_body"],
+        },
+      ],
     });
 
     if (!bloggerData) {

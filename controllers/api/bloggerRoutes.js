@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
       res.status(200).json(bloggerData);
     });
   } catch (error) {
-    res.status(400).json({ status: "error", message: "Can not signup" });
+    res.status(400).json({ status: "error", message: "Cannot signup" });
   }
 });
 

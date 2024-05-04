@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
       ...req.body,
       blogger_id: req.session.user_id,
     });
-    console.log(blogPostData);
+
     res.status(200).json(blogPostData);
   } catch (error) {
     console.error(error);
@@ -31,8 +31,6 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    console.log("update blog route");
-    console.log(req.params.id, req.body);
     const blogpostData = await BlogPost.update(
       {
         title: req.body.title,
