@@ -8,7 +8,7 @@
 <h2>home</h2>
 
 {{#each blogPost}}
-  <a href="/blogpost" id="blog-title-{{id}}"><h4>{{title}}</h4></a>
+  <a href="/api/blogpost/{{id}}" id="blog-title-{{id}}"><h4>{{title}}</h4></a>
     <span>Posted by {{blogger.username}} on {{createdAt}}</span></a>
 
   <p id="blog-post-{{id}}">{{body}}</p>
