@@ -39,3 +39,23 @@ hr {
   margin-bottom: 25px;
   width: 50%;
 }
+
+.welcome-top {
+  position: relative;
+}
+
+.welcome {
+  font-size: 5em;
+  margin: auto;
+  text-align: center;
+}
+
+.new-post-button {
+  background-color: #141414;
+  color: white;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
+}

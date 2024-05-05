@@ -47,10 +47,18 @@ router.get("/profile", async (req, res) => {
         {
           model: BlogPost,
           attributes: ["title", "body", "id", "createdAt"],
-        },
-        {
-          model: Comment,
-          attributes: ["comment_body"],
+          include: [
+            {
+              model: Comment,
+              attributes: ["comment_body", "blogger_id", "blogpost_id"],
+              include: [
+                {
+                  model: Blogger,
+                  attributes: ["username"],
+                },
+              ],
+            },
+          ],
         },
       ],
     });
@@ -61,7 +69,7 @@ router.get("/profile", async (req, res) => {
         .json({ message: "There is no BLOGGER with that user id" });
     }
     const blogger = bloggerData.get({ plain: true });
-
+    console.log(blogger);
     res.render("profile", {
       ...blogger,
       logged_in: req.session.logged_in,

@@ -4,62 +4,68 @@
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
   crossorigin="anonymous"
 />
+<link rel="stylesheet" href="/css/main.css" />
+<div class="post-back">
+  <div class="welcome-top">
 
-<h3>Profile page</h3>
-
-<h4>Welcome {{first_name}}!</h4>
-
-<button
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#postModal"
->Create New Post</button>
-
-<div>
-  {{#each blogposts as |post|}}
-    <hr />
-    <h5 id="blog-title-{{id}}">{{title}}</h5>
-    <p id="blog-post-{{id}}">{{body}}</p>
-    <button
-      class="remove-post"
-      id="delete-post-button-{{id}}"
-      data-id="{{id}}"
-    >Delete</button>
-    <button
-      class="show-edit"
-      id="edit-post-button-{{id}}"
-      data-id="{{id}}"
-    >Edit</button>
-    <form id="{{id}}" class="d-none">
-      <div class="form-group">
-        <label for="updated-post-title" class="col-form-label">Title:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="updated-post-title-{{id}}"
-          value="{{title}}"
-          data-id="{{id}}"
-        />
-      </div>
-      <div class="form-group">
-        <label for="updated-post-body" class="col-form-label">Body:</label>
-        <textarea
-          class="form-control"
-          id="updated-post-body-{{id}}"
-          data-id="{{id}}"
-        >{{body}}</textarea>
-      </div>
-    </form>
+    <h4 class="welcome">Welcome {{first_name}}!</h4>
 
     <button
       type="button"
-      class="btn btn-primary save-edit d-none"
-      id="save-post-button-{{id}}"
-      data-id="{{id}}"
-    >Save</button>
+      class="btn new-post-button"
+      data-toggle="modal"
+      data-target="#postModal"
+    >Create New Post</button>
 
-  {{/each}}
+  </div>
+  <div>
+    {{#each blogposts as |post|}}
+      <hr />
+      <h5 class="post-title" id="blog-title-{{id}}">{{title}}</h5>
+      <p id="blog-post-{{id}}">{{body}}</p>
+      {{#each post.Comments}}
+        <p>{{blogger.username}}: {{comment_body}}</p>
+      {{/each}}
+      <button
+        class="remove-post"
+        id="delete-post-button-{{id}}"
+        data-id="{{id}}"
+      >Delete</button>
+      <button
+        class="show-edit"
+        id="edit-post-button-{{id}}"
+        data-id="{{id}}"
+      >Edit</button>
+      <form id="{{id}}" class="d-none">
+        <div class="form-group">
+          <label for="updated-post-title" class="col-form-label">Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="updated-post-title-{{id}}"
+            value="{{title}}"
+            data-id="{{id}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="updated-post-body" class="col-form-label">Body:</label>
+          <textarea
+            class="form-control"
+            id="updated-post-body-{{id}}"
+            data-id="{{id}}"
+          >{{body}}</textarea>
+        </div>
+      </form>
+
+      <button
+        type="button"
+        class="btn btn-primary save-edit d-none"
+        id="save-post-button-{{id}}"
+        data-id="{{id}}"
+      >Save</button>
+
+    {{/each}}
+  </div>
 </div>
 
 <div
