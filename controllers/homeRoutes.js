@@ -5,6 +5,7 @@ const { Blogger, BlogPost, Comment } = require("../models");
 router.get("/", async (req, res) => {
   try {
     const blogPostData = await BlogPost.findAll({
+      order: [["createdAt", "DESC"]],
       include: [
         {
           model: Comment,
@@ -45,7 +46,7 @@ router.get("/profile", async (req, res) => {
       include: [
         {
           model: BlogPost,
-          attributes: ["title", "body", "id"],
+          attributes: ["title", "body", "id", "createdAt"],
         },
         {
           model: Comment,

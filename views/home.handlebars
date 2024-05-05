@@ -4,18 +4,16 @@
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
   crossorigin="anonymous"
 />
-
-<h2>home</h2>
+<link rel="stylesheet" href="/css/main.css">
 
 {{#each blogPost}}
-  <a href="/api/blogpost/{{id}}" id="blog-title-{{id}}"><h4>{{title}}</h4></a>
+<div class="post-back">
+  <a href="/api/blogpost/{{id}}" id="blog-title-{{id}}"><h4 class="post-title">{{title}}</h4></a>
     <span>Posted by {{blogger.username}} on {{createdAt}}</span></a>
-
   <p id="blog-post-{{id}}">{{body}}</p>
+</div>
 
-
-  <hr />
-
+<hr />
 {{/each}}
 
 <script
@@ -34,4 +32,3 @@
   crossorigin="anonymous"
 ></script>
 
-<script src="/js/home.js"></script>

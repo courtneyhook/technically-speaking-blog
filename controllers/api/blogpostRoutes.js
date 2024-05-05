@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { BlogPost } = require("../../models");
+const { BlogPost, Comment, Blogger } = require("../../models");
 
 router.post("/", async (req, res) => {
   try {
@@ -53,8 +53,30 @@ router.put("/:id", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const blogpostData = await BlogPost.findByPk(req.params.id, {});
-
+    const blogpostData = await BlogPost.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            "comment_body",
+            "blogger_id",
+            "blogpost_id",
+            "createdAt",
+          ],
+          include: [
+            {
+              model: Blogger,
+              attributes: ["username"],
+            },
+          ],
+        },
+        {
+          model: Blogger,
+          attributes: ["username"],
+        },
+      ],
+    });
+    console.log(blogpostData);
     const post = blogpostData.get({ plain: true });
 
     res.render("blogpost", {

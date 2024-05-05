@@ -8,28 +8,37 @@
 
 <h4>{{post.title}}</h4>
 <p>{{post.body}}</p>
+{{#each post.Comments}}
+  <p>{{blogger.username}}: {{comment_body}}</p>
+{{/each}}
 
-<button
-  class="comment-button"
-  data-id="{{id}}"
-  id="comment-button-{{id}}"
->Comment</button>
-<form id="{{id}}" class="d-none">
-  <label for="added-comment">Comment: </label>
-  <br />
-  <textarea
-    id="added-comment-{{id}}"
-    data-id="{{id}}"
-    cols="60"
-    rows="5"
-  ></textarea>
-  <br />
+{{#if logged_in}}
   <button
-    class="save-button"
-    data-id="{{id}}"
-    id="save-comment-{{id}}"
-  >Save</button>
-</form>
+    class="comment-button"
+    data-id="{{post.id}}"
+    id="comment-button-{{post.id}}"
+  >Comment</button>
+  <form id="{{post.id}}" class="d-none">
+    <label for="added-comment">Comment: </label>
+    <br />
+    <textarea
+      id="added-comment-{{post.id}}"
+      data-id="{{post.id}}"
+      cols="60"
+      rows="5"
+    ></textarea>
+    <br />
+    <button
+      class="save-button"
+      data-id="{{post.id}}"
+      id="save-comment-{{post.id}}"
+    >Save</button>
+  </form>
+
+{{else}}
+  <p>Please <a href="/login">login</a> in to leave a comment. </p>
+
+{{/if}}
 <script
   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -45,3 +54,5 @@
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"
 ></script>
+
+<script src="/js/home.js"></script>

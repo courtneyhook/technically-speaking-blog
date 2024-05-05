@@ -3,7 +3,7 @@ const { Comment } = require("../../models");
 
 router.post("/", async (req, res) => {
   if (!req.session.logged_in) {
-    return res.redirect("/login");
+    return res.render("/login2");
   }
   try {
     const commentData = await Comment.create({

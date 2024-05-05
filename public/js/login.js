@@ -11,7 +11,7 @@ const loginUser = async (event) => {
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      document.location.assign("/profile");
+      document.location.assign("/");
     } else {
       console.log("error logging in");
     }
