@@ -2,6 +2,10 @@ body {
   background-color: #141414;
 }
 
+label {
+  color: white;
+}
+
 .main-header {
   background-color: #141414;
   color: #f72585;
