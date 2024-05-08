@@ -6,6 +6,15 @@ label {
   color: white;
 }
 
+.container {
+  position: relative;
+}
+
+form {
+  align-items: center;
+  justify-content: center;
+}
+
 .main-header {
   background-color: #141414;
   color: #f72585;
